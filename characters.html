@@ -1,0 +1,49 @@
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Montez|Maven+Pro:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+    <title>Krönika</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Characters</h1>
+            <label class="hide-completed">
+                <input type="checkbox" checked="{{hideCompleted}}" />
+                Hide Completed Tasks
+            </label>
+            {{#if currentUser}}
+              <form class="new-character">
+                <input type="text" name="text" placeholder="Type to add new characters" />
+              </form>
+            {{/if}}
+        </header>
+        <ul>
+            {{#each characters}} {{> character}} {{/each}}
+        </ul>
+    </div>
+    <div style="position: absolute; left: 2em; top: 2em;">
+        {{> loginButtons}}
+    </div>
+    <div style="font-size:4px;">Icons made by <a href="http://www.flaticon.com/authors/simpleicon" title="SimpleIcon">SimpleIcon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+</body>
+
+<template name="character">
+  <li>
+    <button class="delete">&times;</button>
+    <button class="edit">
+        {{#if editMode}}save{{else}}edit{{/if}}
+    </button>
+    <div class="text">
+        <h2 class="character-name">{{name}}</h2>
+        {{#if editMode}}
+            <div class="character-edit markdown" contenteditable="true">{{{markdown_raw}}}</div>
+        {{else}}
+            <div class="character-description" >
+                {{#markdown}}{{{text}}}{{/markdown}}
+            </div>
+        {{/if}}
+    </div>
+  </li>
+</template>
